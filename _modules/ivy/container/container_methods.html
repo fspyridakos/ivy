@@ -18818,7 +18818,7 @@
 
 <span class="sd">    &gt;&gt;&gt; x = ivy.Container(a=ivy.array([0, 1, 2, 3, 4, 5]),</span>
 <span class="sd">    ...                   b=ivy.array([0, 1, 2, 3, 4, 5]))</span>
-<span class="sd">    &gt;&gt;&gt; y = x.reshape((2,3))</span>
+<span class="sd">    &gt;&gt;&gt; y = x.reshape((2,3), order=&#39;F&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; print(y)</span>
 <span class="sd">    {</span>
 <span class="sd">        a: ivy.array([[0, 2, 4],</span>
