@@ -286,6 +286,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic_backend</span> <span class="o">=</span> <span class="n">dynamic_backend</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dynamic_backend</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">get_dynamic_backend</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;base&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">base</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;_base&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">_base</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_refs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_manipulation_stack</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="c1"># Properties #</span>
     <span class="c1"># ---------- #</span>
