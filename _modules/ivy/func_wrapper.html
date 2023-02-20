@@ -173,6 +173,7 @@
     <span class="s2">&quot;inputs_to_native_arrays&quot;</span><span class="p">,</span>
     <span class="s2">&quot;inputs_to_ivy_arrays&quot;</span><span class="p">,</span>
     <span class="s2">&quot;handle_out_argument&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;handle_view_indexing&quot;</span><span class="p">,</span>
     <span class="s2">&quot;handle_view&quot;</span><span class="p">,</span>
     <span class="s2">&quot;handle_nestable&quot;</span><span class="p">,</span>
     <span class="s2">&quot;handle_exceptions&quot;</span><span class="p">,</span>
@@ -523,7 +524,11 @@
         <span class="n">ret</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">backend</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;torch&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_ivy_array</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="k">return</span> <span class="n">ret</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="n">query</span><span class="p">,)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">query</span>
         <span class="k">if</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">query</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="nb">int</span><span class="p">))]:</span>
             <span class="k">return</span> <span class="n">ret</span>
         <span class="n">original</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -534,7 +539,7 @@
             <span class="n">ret</span> <span class="o">=</span> <span class="n">_build_view</span><span class="p">(</span><span class="n">original</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span>
 
-    <span class="n">new_fn</span><span class="o">.</span><span class="n">handle_view</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">new_fn</span><span class="o">.</span><span class="n">handle_view_indexing</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="n">new_fn</span></div>
 
 
